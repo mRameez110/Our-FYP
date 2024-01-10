@@ -51,6 +51,7 @@ router.post("/patient/details", auth, userPanel);
 // As I click on Email Verification link, This route will execute
 router.get("/patient/verify/:token", emailVerification);
 
+
 router.post("/patient/appointment", appointment);
 router.post("/patient/appointment/get", getAppointments);
 router.post("/patient/appointment/delete", deleteAppointment);
