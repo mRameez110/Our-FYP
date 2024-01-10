@@ -65,6 +65,7 @@ function Login() {
           navigate(`/${role}/dashboard`);
         }, 1000);
       }
+      
     } catch (err) {
       setLoading(false);
       setAlert({ type: "danger", message: err.response.data.message });
