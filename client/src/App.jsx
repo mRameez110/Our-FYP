@@ -17,8 +17,9 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
+      console.log("I found the token in App.js file");
       if (localStorage.getItem("patient")) {
-        navigate("/patient/dashboard/finder");
+        navigate("/patient/dashboard");
       } else if (localStorage.getItem("doctor")) {
         navigate("/doctor/dashboard");
       } else if (localStorage.getItem("admin")) {

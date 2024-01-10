@@ -10,9 +10,7 @@ function Login() {
   const { role } = useParams();
   const [alert, setAlert] = useState({ type: "", message: "" });
   const navigate = useNavigate();
-
   const [user, setUser] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [error, seterror] = useState([]);
 
@@ -67,6 +65,7 @@ function Login() {
           navigate(`/${role}/dashboard`);
         }, 1000);
       }
+      
     } catch (err) {
       setLoading(false);
       setAlert({ type: "danger", message: err.response.data.message });
