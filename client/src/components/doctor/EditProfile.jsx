@@ -4,28 +4,28 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./../utils/Loader";
 import Alert from "./../utils/Alert";
 import { compose, withProps } from "recompose";
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} from "react-google-maps";
+// import {
+//   withScriptjs,
+//   withGoogleMap,
+//   GoogleMap,
+//   Marker,
+// } from "react-google-maps";
 
-const MyMapComponent = compose(
-  withProps({
-    googleMapURL:
-      "https://maps.googleapis.com/maps/api/js?&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
-  }),
-  withScriptjs,
-  withGoogleMap
-)(({ lat, lng }) => (
-  <GoogleMap defaultZoom={15} defaultCenter={{ lat: lat, lng: lng }}>
-    <Marker position={{ lat: lat, lng: lng }} />
-  </GoogleMap>
-));
+// const MyMapComponent = compose(
+//   withProps({
+//     googleMapURL:
+//       "https://maps.googleapis.com/maps/api/js?&v=3.exp&libraries=geometry,drawing,places",
+//     loadingElement: <div style={{ height: `100%` }} />,
+//     containerElement: <div style={{ height: `400px` }} />,
+//     mapElement: <div style={{ height: `100%` }} />,
+//   }),
+//   withScriptjs,
+//   withGoogleMap
+// )(({ lat, lng }) => (
+//   <GoogleMap defaultZoom={15} defaultCenter={{ lat: lat, lng: lng }}>
+//     <Marker position={{ lat: lat, lng: lng }} />
+//   </GoogleMap>
+// ));
 
 function EditProfile() {
   const [loading, setLoading] = useState(false);
@@ -118,14 +118,14 @@ function EditProfile() {
     };
   };
 
-  const handleChangeSelectMultiple = (e) => {
-    const name = e.target.name;
-    const value = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setExperience({ ...experience, [name]: value });
-  };
+  // const handleChangeSelectMultiple = (e) => {
+  //   const name = e.target.name;
+  //   const value = Array.from(
+  //     e.target.selectedOptions,
+  //     (option) => option.value
+  //   );
+  //   setExperience({ ...experience, [name]: value });
+  // };
 
   const handleChangeCheckbox = (e) => {
     const { name, value } = e.target;
@@ -208,18 +208,18 @@ function EditProfile() {
     setLoading(false);
   };
 
-  const getLocation = () => {
-    setLoading(true);
-    if (window.navigator.geolocation) {
-      window.navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        setAvailability({ ...availability, ["location"]: [lat, lng] });
-        setMap(true);
-        setLoading(false);
-      });
-    }
-  };
+  // const getLocation = () => {
+  //   setLoading(true);
+  //   if (window.navigator.geolocation) {
+  //     window.navigator.geolocation.getCurrentPosition((position) => {
+  //       const lat = position.coords.latitude;
+  //       const lng = position.coords.longitude;
+  //       setAvailability({ ...availability, ["location"]: [lat, lng] });
+  //       setMap(true);
+  //       setLoading(false);
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     fetchstorage();
@@ -721,115 +721,6 @@ function EditProfile() {
                       </div>
                     </div>
 
-                    <div className="row">
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label for="SubjectType" class="form-label mt-4">
-                            Which subject you can taugh better?
-                          </label>
-                          <select
-                            class="form-select"
-                            id="SubjectType"
-                            name="subjectType"
-                            value={experience.subjectType}
-                            onChange={handleChangeInputExperience}
-                          >
-                            <option>Choose...</option>
-                            <option value="Science">Science Subjects</option>
-                            <option value="Arts">Arts Subjects</option>
-                            <option value="Commerce">Commerce Subjects</option>
-                            <option value="Others">Others</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label for="SubjectLevel" class="form-label mt-4">
-                            Select level of classes you can teach
-                          </label>
-                          <select
-                            class="form-select"
-                            id="SubjectLevel"
-                            name="subjectLevel"
-                            value={experience.subjectLevel}
-                            onChange={handleChangeInputExperience}
-                          >
-                            <option>Choose...</option>
-                            <option value="Primary">Primary level</option>
-                            <option value="Middle">Middle level</option>
-                            <option value="Matriculation">
-                              Matriculation / O level
-                            </option>
-                            <option value="Intermediate">
-                              Intermiedate / A level
-                            </option>
-                            <option value="Graduation">Graduation level</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label for="expertise" class="form-label mt-4">
-                            Select subject of expertise
-                          </label>
-                          <select
-                            class="form-select"
-                            id="expertise"
-                            name="expertise"
-                            value={experience.expertise}
-                            onChange={handleChangeInputExperience}
-                          >
-                            <option>Choose...</option>
-                            <option value="Islamic Studies">
-                              Islamic Studies
-                            </option>
-                            <option value="Social Studies">
-                              Social Studies
-                            </option>
-                            <option value="Science">
-                              Science (Physics, Chemistry)
-                            </option>
-                            <option value="Math">Math</option>
-                            <option value="Urdu">Urdu</option>
-                            <option value="English">English</option>
-                            <option value="Computer">Computer</option>
-                            <option value="Arabic">Arabic</option>
-                            <option value="Others">Others</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div class="form-group">
-                        <label for="MultipleSubject" class="form-label mt-4">
-                          Select multiple of subjects that you can taught
-                        </label>
-                        <select
-                          multiple
-                          class="form-select"
-                          id="MultipleSubject"
-                          name="multipleSubject"
-                          value={experience.multipleSubject}
-                          onChange={handleChangeSelectMultiple}
-                        >
-                          <option>Choose...</option>
-                          <option value="Islamic Studies">
-                            Islamic Studies
-                          </option>
-                          <option value="Social Studies">Social Studies</option>
-                          <option value="Science">
-                            Science (Physics, Chemistry)
-                          </option>
-                          <option value="Math">Math</option>
-                          <option value="Urdu">Urdu</option>
-                          <option value="English">English</option>
-                          <option value="Computer">Computer</option>
-                          <option value="Arabic">Arabic</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </div>
-                    </div>
 
                     <div className="d-flex justify-content-between my-4">
                       <button className="btn px-5 btn-primary" onClick={goback}>
@@ -1100,7 +991,7 @@ function EditProfile() {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-6">
+                      {/* <div className="col-md-6">
                         <div class="form-group">
                           <label
                             for="exampleLocation"
@@ -1129,7 +1020,7 @@ function EditProfile() {
                             </button>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-md-6">
                         <div class="form-group">
                           <label for="exampleFee" className="form-label mt-4">
@@ -1148,7 +1039,7 @@ function EditProfile() {
                       </div>
                     </div>
 
-                    {map && (
+                    {/* {map && (
                       <div className="row">
                         <div class="my-4">
                           <MyMapComponent
@@ -1157,7 +1048,7 @@ function EditProfile() {
                           />
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     <div className="text-start my-4">
                       <button className="btn px-5 btn-primary" onClick={goback}>

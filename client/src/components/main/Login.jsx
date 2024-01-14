@@ -190,11 +190,15 @@ function Login() {
                 )}
 
                 <span className="text-center d-block pt-4">
-                  Don't have an account?{" "}
-                  <Link to={`/signup/${role}`} className="text-primary">
-                    {" "}
-                    Signup
-                  </Link>
+                 Don't have an account?{" "}
+                    <Link to={`/signup/${role}`} className="text-primary signup-link">
+                      Sign up
+                    </Link>
+                </span>
+                <span className="text-center d-block pt-4">
+                    <Link to={`/forgot-password/${role}`} className="text-muted forgot-password-link">
+                      Forgot Password?
+                    </Link>
                 </span>
               </form>
             </div>

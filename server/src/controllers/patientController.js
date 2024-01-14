@@ -8,6 +8,7 @@ const stripe = require("stripe")(
 );
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const crypto = require("crypto");
 
 const signUp = async (req, res) => {
   try {
@@ -43,6 +44,67 @@ const signUp = async (req, res) => {
   }
 };
 
+const sendForgetPasswordEmail = async (req, res) => {
+  try {
+    const {email} = req.body;
+
+    const patient = await Patient.findOne({ email });
+    if (!patient) {
+      return res.status(404).json({ err: "Email not found" });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    patient.resetPasswordToken = resetToken;
+    patient.resetPasswordExpires = Date.now() + 3600000; // Token valid for 1 hour
+    await patient.save();
+
+    const resetLink = `http://localhost:3000/reset-password/patient/${resetToken}`;
+    
+    await mail({
+      from: process.env.email,
+      to: email,
+      subject: "Password Reset Link",
+      text: `Please click on the following link to reset Password: ${resetLink}`,
+    });
+
+    res.status(200).json({ message: "Sending Email...." });
+
+  } catch (err) {
+    console.error("Error in forgot password route:", err);
+    res.status(500).json({ err: "Internal server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+   try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const patient = await Patient.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!patient) {
+      return res.status(400).json({ error: "Invalid or expired token" });
+    }
+
+    // Set new password
+    patient.password = password;
+    patient.resetPasswordToken = undefined;
+    patient.resetPasswordExpires = undefined;
+
+    await patient.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Error in reset password route:", error);
+    res.status(500).json({ error: "Internal server error" });
+  } 
+};
+  
+  
 const login = async (req, res) => {
   const patient = req.user;
 
@@ -162,6 +224,7 @@ const updatePatient = async (req, res) => {
 const getAppointments = async (req, res) => {
   try {
     const { patient } = req.body;
+    await console.log("Patirnt is ", patient);
     const appointments = await Appointment.find({ patient: patient });
     if (appointments) {
       const doctors = await Doctor.find({
@@ -639,6 +702,8 @@ const uploadQuiz = async (req, res) => {
 
 module.exports = {
   signUp,
+  sendForgetPasswordEmail,
+  resetPassword,
   login,
   emailVerification,
   userPanel,

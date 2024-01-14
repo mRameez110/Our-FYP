@@ -71,11 +71,13 @@ const doctorSchema = new mongoose.Schema({
     experience: String,
     interest: String,
     expertise: String,
-    subjectLevel: String,
-    subjectType: String,
-    multipleSubject: [String],
+    // subjectLevel: String,
+    // subjectType: String,
+    // multipleSubject: [String],
   },
+  
   availability: {
+    
     fee: Number,
     hours: Number,
     startDate: String,
@@ -83,7 +85,19 @@ const doctorSchema = new mongoose.Schema({
     days: [String],
     timeslot: [String],
     location: [Number],
+     bookedAppointments: [
+    {
+      date: String, 
+      time: String,
+     
+    },
+  ],
   },
+
+
+
+  
+
   tokens: [
     {
       token: {
@@ -92,6 +106,12 @@ const doctorSchema = new mongoose.Schema({
       },
     },
   ],
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
 });
 
 doctorSchema.pre("save", async function (next) {

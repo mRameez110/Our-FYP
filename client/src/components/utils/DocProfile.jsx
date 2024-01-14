@@ -60,6 +60,7 @@ function DocProfile({ doctor, myself }) {
                     >
                       Set Appointment
                     </button>
+                    {/* Its Implementation is inside DoctorProfile.jsx */}
                     <button
                       className="btn btn-outline-primary me-2"
                       data-toggle="modal"
@@ -168,15 +169,7 @@ function DocProfile({ doctor, myself }) {
                       subjects.
                     </span>
                   </div>
-                  <div className="d-flex align-items-center mb-2">
-                    <i className="mx-3 fa-solid fa-chalkboard-user text-dark"></i>
-                    <span className="mx-3">
-                      I can teach{" "}
-                      <strong>{doctor.experience.subjectType} subject</strong>{" "}
-                      to <strong>{doctor.experience.subjectLevel}</strong> level
-                      patients.
-                    </span>
-                  </div>
+                 
                   <div className="d-flex align-items-center mb-2">
                     <i className="mx-3 fas fa-solid fa-bolt text-success"></i>
                     <span className="mx-3">
@@ -184,20 +177,7 @@ function DocProfile({ doctor, myself }) {
                       <strong>{doctor.experience.expertise} </strong>subjects.
                     </span>
                   </div>
-                  <div className="d-flex align-items-center mb-2">
-                    <i className="mx-3 fa-solid fa-book text-info"></i>
-                    <span className="mx-3">
-                      I can teach other subjects including{" "}
-                      <strong>
-                        {doctor.experience.multipleSubject.map(
-                          (subject, index) => {
-                            return <span key={index}>{subject}, </span>;
-                          }
-                        )}
-                      </strong>{" "}
-                      as well.
-                    </span>
-                  </div>
+                  
                 </div>
               </div>
             </div>

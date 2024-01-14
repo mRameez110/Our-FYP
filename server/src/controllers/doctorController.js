@@ -7,6 +7,7 @@ require("dotenv").config();
 const mail = require("../modules/mail");
 const path = require("path");
 const fs = require("fs");
+const crypto = require("crypto");
 
 const signUp = async (req, res) => {
   try {
@@ -33,6 +34,67 @@ const signUp = async (req, res) => {
     res.status(400).send(err.message);
   }
 };
+
+const sendForgetPasswordEmail = async (req, res) => {
+  try {
+    const {email} = req.body;
+
+    const doctor = await Doctor.findOne({ email });
+    if (!doctor) {
+      return res.status(404).json({ err: "Email not found" });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    doctor.resetPasswordToken = resetToken;
+    doctor.resetPasswordExpires = Date.now() + 3600000; // Token valid for 1 hour
+    await doctor.save();
+
+    const resetLink = `http://localhost:3000/reset-password/doctor/${resetToken}`;
+    
+    await mail({
+      from: process.env.email,
+      to: email,
+      subject: "Password Reset Link",
+      text: `Please click on the following link to reset Password: ${resetLink}`,
+    });
+
+    res.status(200).json({ message: "Sending Email...." });
+
+  } catch (err) {
+    console.error("Error in forgot password route:", err);
+    res.status(500).json({ err: "Internal server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+   try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const doctor = await Doctor.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!doctor) {
+      return res.status(400).json({ error: "Invalid or expired token" });
+    }
+
+    // Set new password
+    doctor.password = password;
+    doctor.resetPasswordToken = undefined;
+    doctor.resetPasswordExpires = undefined;
+
+    await doctor.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Error in reset password route:", error);
+    res.status(500).json({ error: "Internal server error" });
+  } 
+};
+
 
 const login = async (req, res) => {
   const doctor = req.user;
@@ -144,8 +206,8 @@ const searchDoctor = async (req, res) => {
           city: obj.city,
           rating: obj.rating,
           experience: obj.experience.experience,
-          subjectType: obj.experience.subjectType,
-          subjectLevel: obj.experience.subjectLevel,
+          // subjectType: obj.experience.subjectType,
+          // subjectLevel: obj.experience.subjectLevel,
           expertise: obj.experience.expertise,
           fee: obj.availability.fee,
           location: obj.availability.location,
@@ -378,6 +440,8 @@ const classroomNotes = async (req, res) => {
 
 module.exports = {
   signUp,
+  sendForgetPasswordEmail,
+  resetPassword,
   login,
   userPanel,
   emailVerification,

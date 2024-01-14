@@ -6,13 +6,15 @@ import Login from "./components/main/Login";
 import AdminLogin from "./components/main/AdminLogin";
 import Signup from "./components/main/Signup";
 import Verifier from "./components/main/Verifier";
+import ForgetPassword from "./components/main/ForgetPassword";
+import ResetPassword from "./components/main/ResetPassword";
 
 import PatientDashboard from "./components/patient/PatientDashoard";
 import DoctorDashboard from "./components/doctor/DoctorDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 function App() {
-  const [count, setCount] = useState(5);
+ // const [count, setCount] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +41,8 @@ function App() {
         <Route path="/login/:role" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/verify/:role/:status" element={<Verifier />} />
+        <Route path="/forgot-password/:role" element={<ForgetPassword />} />
+        <Route path="/reset-password/:role/:token" element={<ResetPassword />} />
 
         <Route path="/patient/dashboard/*" element={<PatientDashboard />} />
         <Route path="/doctor/dashboard/*" element={<DoctorDashboard />} />

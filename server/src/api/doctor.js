@@ -18,6 +18,8 @@ const upload = multer({ storage });
 const {
   signUp,
   login,
+  sendForgetPasswordEmail,
+  resetPassword,
   userPanel,
   emailVerification,
   updateProfile,
@@ -42,6 +44,11 @@ router.post("/doctor/signup", Register, signUp);
 router.post("/doctor/login", Login, login);
 router.post("/doctor/details", auth, userPanel);
 router.get("/doctor/verify/:token", emailVerification);
+
+router.post("/doctor/forget-password", sendForgetPasswordEmail);
+router.post("/doctor/reset-password/:token", resetPassword);
+
+
 router.post("/doctor/delete", auth, deleteDoctor);
 
 router.get("/doctor/search", searchDoctor);

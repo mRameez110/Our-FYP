@@ -1,4 +1,4 @@
-const Teacher = require("../model/doctorSchema");
+const Doctor = require("../model/doctorSchema");
 const Patient = require("../model/patientSchema");
 const bycrypt = require("bcryptjs");
 const url = require("url");
@@ -7,7 +7,7 @@ const Register = async (req, res, next) => {
   const alreadyExist =
     req.body.role == "patient"
       ? await Patient.findOne({ email: req.body.email })
-      : await Teacher.findOne({ email: req.body.email });
+      : await Doctor.findOne({ email: req.body.email });
   if (alreadyExist) {
     if (alreadyExist.username == req.body.username)
       return res
@@ -38,7 +38,7 @@ const Login = async (req, res, next) => {
     // userType === "patient"
     req.body.role == "patient"
       ? await Patient.findOne({ email: req.body.email })
-      : await Teacher.findOne({ email: req.body.email });
+      : await Doctor.findOne({ email: req.body.email });
   if (!find) return res.status(404).json({ message: `Email does not exist` });
   const decrypt = bycrypt.compareSync(req.body.password, find.password);
   if (!decrypt) return res.status(401).json({ message: "Invalid Password" });

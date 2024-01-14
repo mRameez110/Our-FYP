@@ -25,6 +25,59 @@ function DoctorProfile() {
     text: "",
   });
 
+const handleBookAppointment = () => {
+  const { appointmentDate, appointmentTime } = appointment;
+
+  // Check if the selected time slot is already booked
+  // const isSlotBooked = doctor.bookedAppointments.some(
+  //   (appointment) => appointment.date === appointment.appointmentDate && appointment.time === appointment.appointmentTime
+  // );
+
+  // if (isSlotBooked) {
+  //   // Notify the user that the slot is already booked
+  //   setAlert({ type: "error", message: "Selected time slot is already booked. Please choose a different time." });
+  //   return;
+  // }
+
+  // Assuming doctorAvailability is an object retrieved from the doctor's profile
+  const { startDate, endDate, days } = doctor.availability;
+
+  // Check if appointment day, date, and time fall within doctor's availability
+  const selectedDate = new Date(appointmentDate);
+  const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+  const doctorStartDate = new Date(startDate);
+  const doctorEndDate = new Date(endDate);
+
+  // Check if the selected date is within the doctor's availability range
+  if (selectedDate < doctorStartDate || selectedDate > doctorEndDate) {
+    setAlert({ type: "danger", message: "Selected day or time is not available. Please choose a different day or time." });
+    return;
+  }
+
+  // Check if the selected day is within the doctor's availability days
+  if (!days.includes(selectedDay.toLowerCase())) {
+    // setError("Selected day is not within the doctor's availability. Please choose a different day.");
+       setAlert({ type: "danger", message: "Selected day is not within the doctor's availability. Please choose a different day." });
+
+    return;
+  }
+
+  const selectedTime = new Date(`2000-01-01T${appointmentTime}`);
+  
+  // Check if the selected time is within the doctor's overall time range
+  if (selectedTime < doctorStartDate || selectedTime > doctorEndDate) {
+    setError("Selected time is not available. Please choose a different time.");
+    return;
+  }
+
+  // Continue with the appointment booking logic if all checks pass
+  BookAppointment();
+
+  
+
+};
+
+
   const sendMessage = () => {
     const message = {
       participants: [
@@ -65,12 +118,17 @@ function DoctorProfile() {
   async function getDoctor() {
     try {
       setLoading(true);
+      //doctor profile show if its complete
       const res = await axios.get(`/api/doctor/profile/${username}`);
       console.log("Response of geting doctor is ", res);
       setDoctor(res.data);
+      
+      if(res.status == 400)
+       setAlert({ type: "success", msg: "Doctor profile is not complete" });
       setLoading(false);
     } catch (err) {
       setDoctor("");
+      setAlert({ type: "danger", msg: "Doctor profile is not complete" });
       console.log("Error in getting doctor", err);
     }
   }
@@ -290,7 +348,7 @@ function DoctorProfile() {
                       type="button"
                       class="btn btn-primary mt-4 w-75"
                       data-dismiss="modal"
-                      onClick={BookAppointment}
+                      onClick={handleBookAppointment}
                     >
                       Book Appointment
                     </button>

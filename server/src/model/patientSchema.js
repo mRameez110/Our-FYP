@@ -55,6 +55,12 @@ const patientSchema = new mongoose.Schema({
       },
     },
   ],
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
 });
 
 patientSchema.pre("save", async function (next) {

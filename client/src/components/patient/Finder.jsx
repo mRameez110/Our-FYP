@@ -202,8 +202,8 @@ function UsersList(props) {
       rating={user.rating}
       experience={user.experience}
       expertise={user.expertise}
-      subjectType={user.subjectType}
-      subjectLevel={user.subjectLevel}
+      // subjectType={user.subjectType}
+      // subjectLevel={user.subjectLevel}
       fee={user.fee}
     />
   ));
@@ -226,8 +226,8 @@ function Finder() {
     username: "",
     expertise: "",
     experience: "",
-    subjectType: "",
-    subjectLevel: "",
+    // subjectType: "",
+    // subjectLevel: "",
     fee: "",
   });
 
@@ -483,7 +483,7 @@ function Finder() {
                             },
                             rating: user.rating,
                             fee: user.fee,
-                            subjectType: user.subjectType,
+                            // subjectType: user.subjectType,
                           };
                         })}
                       />

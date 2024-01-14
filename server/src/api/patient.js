@@ -20,6 +20,8 @@ const upload = multer({ storage });
 
 const {
   signUp,
+  sendForgetPasswordEmail,
+  resetPassword,
   login,
   userPanel,
   emailVerification,
@@ -51,6 +53,8 @@ router.post("/patient/details", auth, userPanel);
 // As I click on Email Verification link, This route will execute
 router.get("/patient/verify/:token", emailVerification);
 
+router.post("/patient/forget-password", sendForgetPasswordEmail);
+router.post("/patient/reset-password/:token", resetPassword);
 
 router.post("/patient/appointment", appointment);
 router.post("/patient/appointment/get", getAppointments);
