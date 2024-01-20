@@ -24,16 +24,6 @@ function Nav() {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
         <div className="container-fluid">
-          {/* <Link className="navbar-brand text-light" to="/">
-            DoctorHub
-          </Link> */}
-          {/* <a class="navbar-brand" href="#"> */}
-          {/* <img
-              src="https://spscc.edu/sites/default/files/inline-images/SmartHealth.png"
-              alt="logo"
-            /> */}
-          {/* DoctorHub */}
-          {/* </a> */}
 
           <img
             style={{ height: "45px", width: "250px" }}

@@ -1,7 +1,7 @@
 const Doctor = require("../model/doctorSchema");
 const Appointment = require("../model/appointmentSchema");
 const Patient = require("../model/patientSchema");
-const Classroom = require("../model/classroomSchema");
+//const Classroom = require("../model/classroomSchema");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const mail = require("../modules/mail");
@@ -121,7 +121,7 @@ const emailVerification = (req, res) => {
         doctor.isVerified = true;
         doctor.save();
         res.redirect(
-          `http://localhost:3000/verify/patient/${doctor.isVerified}`
+          `http://localhost:3000/verify/doctor/${doctor.isVerified}`
         );
       });
     }
@@ -197,7 +197,8 @@ const searchDoctor = async (req, res) => {
   try {
     const doctors = await Doctor.find();
     const result = doctors
-      //   .filter((obj) => obj.isProfileComplete === true)
+    // who have complete profile
+        // .filter((obj) => obj.isProfileComplete === true)
       .map((obj) => {
         return {
           name: obj.name,
@@ -206,8 +207,8 @@ const searchDoctor = async (req, res) => {
           city: obj.city,
           rating: obj.rating,
           experience: obj.experience.experience,
-          // subjectType: obj.experience.subjectType,
-          // subjectLevel: obj.experience.subjectLevel,
+          subjectType: obj.experience.subjectType,
+          subjectLevel: obj.experience.subjectLevel,
           expertise: obj.experience.expertise,
           fee: obj.availability.fee,
           location: obj.availability.location,
@@ -218,6 +219,42 @@ const searchDoctor = async (req, res) => {
     res.status(400).json(err.message);
   }
 };
+
+// const getAppointments = async (req, res) => {
+//   try {
+//     const { doctor } = req.body;
+//     const appointments = await Appointment.find({ doctor: doctor });
+//     if (appointments) {
+//       const patients = await Patient.find({
+//         username: {
+//           $in: appointments.map((appointment) => appointment.patient),
+//         },
+//       });
+//       const result = appointments.map((appointment) => {
+//         const patient = patients.find(
+//           (patient) => patient.username == appointment.patient
+//         );
+//         return {
+//           ...appointment._doc,
+//           patient: {
+//             // profile: patient.profile,
+//             name: patient.name,
+//             username: patient.username,
+//           },
+//         };
+//       });
+//       result.sort((a, b) => {
+//         return new Date(b.createdAt) - new Date(a.createdAt);
+//       });
+//       res.json(result);
+//     } else {
+//       res.status(400).json({ msg: "No appointments found" });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json(err.message);
+//   }
+// };
 
 const getAppointments = async (req, res) => {
   try {
@@ -321,122 +358,37 @@ const modifyAppointment = async (req, res) => {
   }
 };
 
-const getClassrooms = async (req, res) => {
-  try {
-    console.log(req.body);
-    const classrooms = await Classroom.find({
-      "doctor.username": req.body.username,
-    });
-    res.status(200).json(classrooms);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+// const getClassrooms = async (req, res) => {
+//   try {
+//     console.log(req.body);
+//     const classrooms = await Classroom.find({
+//       "doctor.username": req.body.username,
+//     });
+//     res.status(200).json(classrooms);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
 
-const classroomAnnouncement = async (req, res) => {
-  try {
-    console.log(req.body);
-    const { classroom, announcement } = req.body;
-    const update = await Classroom.findByIdAndUpdate(
-      classroom,
-      { $push: { announcements: announcement } },
-      { new: true }
-    );
-    // set announcements in descending order
-    update.announcements.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-    res.status(200).json(update);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+// const classroomAnnouncement = async (req, res) => {
+//   try {
+//     console.log(req.body);
+//     const { classroom, announcement } = req.body;
+//     const update = await Classroom.findByIdAndUpdate(
+//       classroom,
+//       { $push: { announcements: announcement } },
+//       { new: true }
+//     );
+//     // set announcements in descending order
+//     update.announcements.sort((a, b) => {
+//       return new Date(b.createdAt) - new Date(a.createdAt);
+//     });
+//     res.status(200).json(update);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
 
-const classroomAssignments = async (req, res) => {
-  try {
-    const { classroom, subject, title, description, link, dueDate } = req.body;
-    const filename = req.file == undefined ? "" : req.file.filename;
-
-    const update = await Classroom.findOneAndUpdate(
-      {
-        _id: classroom,
-        "subjects._id": subject,
-      },
-      {
-        $push: {
-          "subjects.$.assignments": {
-            title: title,
-            description: description,
-            link: link,
-            content: `/api/public/${filename}`,
-            dueDate: dueDate,
-          },
-        },
-      },
-      { new: true }
-    );
-
-    res.status(200).json(update);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err.message);
-  }
-};
-
-const classroomQuizzes = async (req, res) => {
-  try {
-    const { classroom, subject, title, description, link, dueDate } = req.body;
-    const filename = req.file == undefined ? "" : req.file.filename;
-
-    const update = await Classroom.findOneAndUpdate(
-      { _id: classroom, "subjects._id": subject },
-      {
-        $push: {
-          "subjects.$.quizzes": {
-            title: title,
-            description: description,
-            link: link,
-            content: `/api/public/${filename}`,
-            dueDate: dueDate,
-          },
-        },
-      },
-      { new: true }
-    );
-
-    res.status(200).json(update);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err.message);
-  }
-};
-
-const classroomNotes = async (req, res) => {
-  try {
-    const { classroom, subject, title, description, link } = req.body;
-    const filename = req.file == undefined ? "" : req.file.filename;
-
-    const update = await Classroom.findOneAndUpdate(
-      { _id: classroom, "subjects._id": subject },
-      {
-        $push: {
-          "subjects.$.notes": {
-            title: title,
-            description: description,
-            link: link,
-            content: `/api/public/${filename}`,
-          },
-        },
-      },
-      { new: true }
-    );
-
-    res.status(200).json(update);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err.message);
-  }
-};
 
 module.exports = {
   signUp,
@@ -455,9 +407,4 @@ module.exports = {
   cancelAppointment,
   acceptAppointment,
   modifyAppointment,
-  getClassrooms,
-  classroomAnnouncement,
-  classroomNotes,
-  classroomAssignments,
-  classroomQuizzes,
 };

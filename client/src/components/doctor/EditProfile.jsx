@@ -702,6 +702,19 @@ function EditProfile() {
                             <option vlaue="New">First time ?</option>
                           </select>
                         </div>
+
+                         <div className="col-md-4">
+                      <div class="form-group">
+                          <label for="expertise" class="form-label mt-4">Select subject of expertise</label>
+                          <select class="form-select" id="expertise" name="expertise" value={experience.expertise} onChange={handleChangeInputExperience}>
+                            <option>Choose...</option>
+                            <option value="Islamic Studies">Medicine</option>
+                            <option value="Social Studies">Skin</option>
+                            <option value="Math">Heart</option>
+                            <option value="Others">Liver</option>
+                          </select>
+                        </div>
+                      </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
@@ -712,7 +725,7 @@ function EditProfile() {
                             type="text"
                             className="form-control text-muted"
                             id="Interest"
-                            placeholder="Your favourite subject?"
+                            placeholder="Yofur favourite subject?"
                             name="interest"
                             value={experience.interest}
                             onChange={handleChangeInputExperience}

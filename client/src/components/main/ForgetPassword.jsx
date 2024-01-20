@@ -1,4 +1,6 @@
 // components/main/ForgetPassword.jsx
+//Page get on click on forget password
+
 
 import React, { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";

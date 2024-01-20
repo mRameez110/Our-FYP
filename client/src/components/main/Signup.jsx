@@ -16,6 +16,7 @@ function Signup() {
     email: "",
     password: "",
     username: "",
+    referralCode: "", // New field for referral code
   });
   const [alert, setAlert] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,7 @@ function Signup() {
       .valid(Joi.ref("password"))
       .required()
       .error(new Error("Passwords do not match.")),
+    referralCode: Joi.string().allow("").optional(), // Referral code is now optional
   });
 
   // Sign Up Via Google
@@ -291,6 +293,26 @@ function Signup() {
                   </div>
                 </div>
 
+              <div className="row">
+                <div className="form-group">
+                  <label for="exampleInputReferral" className="form-label mt-4">
+                    Referral Code (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputReferral"
+                    placeholder="Enter Referral Code"
+                    name="referralCode"
+                    value={user.referralCode}
+                    onChange={handleChangeInput}
+                  />
+                  <small className="form-text text-muted">
+                    (Optional) If you have a referral code, you can enter it here.
+                  </small>
+                </div>
+              </div>
+
                 <div className="d-flex mb-5 mt-4 align-items-center">
                   <div className="d-flex align-items-center">
                     <div className="form-check">
@@ -320,7 +342,7 @@ function Signup() {
                   error.password ||
                   error.confirmPassword) ? (
                   <button className="btn px-5 btn-primary" disabled>
-                    Fill all the fields and resolve errors
+                    Fill all mandatory fields and resolve errors
                   </button>
                 ) : (
                   <button

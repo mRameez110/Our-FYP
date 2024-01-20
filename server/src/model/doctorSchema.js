@@ -71,8 +71,8 @@ const doctorSchema = new mongoose.Schema({
     experience: String,
     interest: String,
     expertise: String,
-    // subjectLevel: String,
-    // subjectType: String,
+    subjectLevel: String,
+    subjectType: String,
     // multipleSubject: [String],
   },
   
@@ -89,7 +89,6 @@ const doctorSchema = new mongoose.Schema({
     {
       date: String, 
       time: String,
-     
     },
   ],
   },

@@ -5,13 +5,14 @@ import axios from "axios";
 import PatientNavbar from "./PatientNavbar";
 import Statistics from "./Statistics";
 import Finder from "./Finder";
-import Classrooms from "./Classrooms";
-import Class from "./Class";
+// import Classrooms from "./Classrooms";
+// import Class from "./Class";
 import Messages from "./Messages";
 import Appointments from "./Appointments";
 
 import ViewProfile from "./ViewProfile";
 import EditProfile from "./EditProfile";
+import ReferralPage from "./ReferralPage";
 import DeleteProfile from "./DeleteProfile";
 import DoctorProfile from "./DoctorProfile";
 
@@ -67,6 +68,7 @@ function PatientDashoard() {
           <Route path="/profile/:username" element={<DoctorProfile />} />
           <Route path="/view-profile" element={<ViewProfile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/referral" element={<ReferralPage />} />
           <Route path="/delete-profile" element={<DeleteProfile />} />
         </Routes>
       </div>

@@ -1,8 +1,9 @@
 const Patient = require("../model/patientSchema");
 const Appointment = require("../model/appointmentSchema");
 const Doctor = require("../model/doctorSchema");
-const Classroom = require("../model/classroomSchema");
+// const Classroom = require("../model/classroomSchema");
 const mail = require("../modules/mail");
+const referalCodeGenerator = require("../modules/referal");
 const stripe = require("stripe")(
   "sk_test_51NXkywEEmrDcA7BPvJcTlLYiz0lumgxDa0Ac9qnrUQ6zvQ1ilQ0450DXAxwF1AWMRDPaUhF4n2WUG2l4iI5XNw0I002bQfTM94"
 );
@@ -195,31 +196,6 @@ const updatePatient = async (req, res) => {
   }
 };
 
-// const appointment = async (req, res) => {
-//   try {
-//     const {
-//       patient,
-//       doctor,
-//       appointmentDate,
-//       appointmentTime,
-
-//       notes,
-//     } = req.body;
-//     const appointment = new Appointment({
-//       patient,
-//       doctor,
-//       appointmentDate,
-//       appointmentTime,
-
-//       notes,
-//     });
-//     const result = await appointment.save();
-//     console.log(result);
-//     res.status(200).json({ msg: "Appointment created successfully" });
-//   } catch (err) {
-//     res.status(400).json(err.message);
-//   }
-// };
 
 const getAppointments = async (req, res) => {
   try {
@@ -252,6 +228,7 @@ const getAppointments = async (req, res) => {
       res.json(result);
     }
   } catch (err) {
+    console.error(err); // Log the error
     res.status(400).json(err.message);
   }
 };
@@ -302,238 +279,6 @@ const updateAppointment = async (req, res) => {
   }
 };
 
-// const payment = async (req, res) => {
-//   const data = {
-//     fee: req.query.fee,
-//     doctor: req.query.doctor,
-//     patient: req.query.patient,
-//     multipleSubjects: JSON.parse(req.query.multipleSubjects),
-//     quantity: JSON.parse(req.query.multipleSubjects).length,
-//   };
-//   const session = await stripe.checkout.sessions.create({
-//     payment_method_types: ["card"],
-//     line_items: data.multipleSubjects.map((subject) => {
-//       return {
-//         price_data: {
-//           currency: "pkr",
-//           product_data: {
-//             name: subject,
-//             images: ["https://i.imgur.com/EHyR2nP.png"],
-//           },
-//           unit_amount: parseInt(data.fee) * 100,
-//         },
-//         quantity: 1,
-//       };
-//     }),
-//     mode: "payment",
-//     success_url: `http://localhost:5000/payment/success?doctor=${data.doctor}&patient=${data.patient}&multipleSubjects=${data.multipleSubjects}`,
-//     cancel_url: `http://localhost:5000/payment/cancel/`,
-//   });
-//   res.redirect(session.url);
-// };
-
-// const payment = async (req, res) => {
-//   try {
-//     const { fee, doctor, patient } = req.query;
-
-//     if (!fee || !doctor || !patient) {
-//       return res
-//         .status(400)
-//         .json({ error: "Missing some required parameters" });
-//     }
-
-//     const data = {
-//       fee,
-//       doctor,
-//       patient,
-//     };
-
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card"],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: "pkr",
-//             product_data: {
-//               name: "Appointment", // Customize as needed
-//               images: ["https://i.imgur.com/EHyR2nP.png"],
-//             },
-//             unit_amount: parseInt(data.fee) * 100,
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: "payment",
-//       success_url: `http://localhost:5000/payment/success?doctor=${data.doctor}&patient=${data.patient}&multipleSubjects=${data.multipleSubjects}`,
-//       cancel_url: `http://localhost:5000/payment/cancel/`,
-//     });
-//     console.log("Session url is ", session.url);
-//     res.redirect(session.url);
-//   } catch (error) {
-//     console.error("Error in payment:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// const BookAppointment = async (req, res) => {
-//   try {
-//     const { appointmentDate, appointmentTime, notes, doctor, patient } =
-//       req.body;
-
-//     console.log(
-//       "Appointment details are ",
-//       appointmentDate,
-//       appointmentTime,
-//       notes,
-//       doctor,
-//       patient
-//     );
-//     const finddoctorforFee = await doctor.findOne({ username: doctor });
-//     const appointmentFee = finddoctorforFee.availability.fee;
-
-//     console.log("doctor fee is ", appointmentFee);
-//     const appointment = new Appointment({
-//       appointmentDate,
-//       appointmentTime,
-//       notes,
-//       doctor,
-//       patient,
-//       appointmentFee,
-//     });
-
-//     // Create a Checkout session with Stripe
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card"],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: "usd", // Update currency as needed
-//             product_data: {
-//               name: "Appointment",
-//               images: ["https://i.imgur.com/EHyR2nP.png"],
-//             },
-//             unit_amount: appointmentFee * 100,
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: "payment",
-//       success_url: "http://localhost:3000/patient/dashboard/appointment",
-//       cancel_url: "http://localhost:5000/payment/cancel/",
-//     });
-
-//     const savedAppointment = await appointment.save();
-//     // Send the Checkout session URL to the client
-//     res.status(200).json({
-//       msg: "Appointment created successfully",
-//       appointmentId: savedAppointment.id,
-//       stripeCheckoutUrl: session.url,
-//     });
-//   } catch (err) {
-//     console.error("Error creating appointment:", err);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// const Appointment = require("../models/appointment"); // Assuming you have an Appointment model
-
-// const BookAppointment = async (req, res) => {
-//   try {
-//     const { appointmentDate, appointmentTime, notes, doctor, patient } =
-//       req.body;
-//     // const { notes, doctor, patient } = req.body;
-//     console.log("Appointment response data in bookappointment ", {
-//       appointmentDate,
-//       appointmentTime,
-//       notes,
-//       doctor,
-//       patient,
-//     });
-//     console.log(
-//       "Appointment response data in bookappointment ",
-//       doctor,
-//       patient
-//     );
-//     const findDoctorforFee = await Doctor.findOne({ username: doctor });
-//     const appointmentFee = findDoctorforFee.availability.fee;
-//     console.log("Doctor appointment fee is ", appointmentFee);
-
-//     // Redirect to Stripe Checkout page immediately without saving the appointment
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card"],
-
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: "usd",
-//             product_data: {
-//               name: "Appointment",
-//               images: ["https://i.imgur.com/EHyR2nP.png"],
-//             },
-//             unit_amount: appointmentFee * 100,
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: "payment",
-//       success_url: "http://localhost:5000/payment/success?paymentSuccess=true",
-//       cancel_url: `http://localhost:5000/payment/cancel`,
-//     });
-//     console.log("origin is ", req.headers.origin);
-//     console.log("Stripe Checkout session URL is :", session.url);
-//     console.log("Stripe Checkout session attributes are :", session);
-//     console.log("Stripe Checkout status are :", session.status);
-//     res.status(200).json({
-//       stripeCheckoutUrl: session.url,
-//       stripeSession: session.status,
-//     });
-//     console.log("Stripe Checkout status are :", session.status);
-//   } catch (err) {
-//     console.error("Error creating checkout session:", err);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// const saveAppointment = async (req, res) => {
-//   try {
-//     const { appointmentDate, appointmentTime, notes, doctor, patient } =
-//       req.body;
-//     console.log("Appointment response data in SaveAppointment ", {
-//       appointmentDate,
-//       appointmentTime,
-//       notes,
-//       doctor,
-//       patient,
-//     });
-//     console.log(
-//       "Appointment response data in SaveAppointment ",
-//       doctor,
-//       patient
-//     );
-
-//     // Save the appointment details to the database
-//     const appointment = new Appointment({
-//       appointmentDate,
-//       appointmentTime,
-//       notes,
-//       doctor,
-//       patient,
-//     });
-//     console.log("Appointment response data is ", appointment);
-//     const savedAppointment = await appointment.save();
-//     console.log("saved appointment is ", savedAppointment);
-
-//     // Perform other actions as needed
-//     // ...
-//     console.log("SavedAppointment api run, redirected to appointments");
-//     res.redirect(
-//       "http://localhost:3000/patient/dashboard/appointments?paymentSuccess=true"
-//     );
-//   } catch (error) {
-//     console.error("Error handling payment success:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
 
 const BookAppointment = async (req, res) => {
   try {
@@ -541,6 +286,7 @@ const BookAppointment = async (req, res) => {
       appointmentDate,
       appointmentTime,
       notes,
+      duration,
       doctor,
       patient,
       appointmentFee,
@@ -569,6 +315,7 @@ const BookAppointment = async (req, res) => {
         JSON.stringify({
           appointmentDate,
           appointmentTime,
+          duration,
           notes,
           doctor,
           patient,
@@ -627,78 +374,139 @@ const saveAppointment = async (req, res) => {
   }
 };
 
-const getClassrooms = async (req, res) => {
+// const getClassrooms = async (req, res) => {
+//   try {
+//     console.log(req.body);
+//     const classrooms = await Classroom.find({
+//       "patient.username": req.body.username,
+//     });
+//     res.status(200).json(classrooms);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
+
+// const getClass = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     console.log(id);
+//     const result = await Classroom.findOne({ _id: id });
+//     res.status(200).json(result);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
+
+// const uploadAssignment = async (req, res) => {
+//   try {
+//     const { classroom, subject, assignment, link } = req.body;
+//     const filename = req.file == undefined ? "" : req.file.filename;
+//     const result = await Classroom.findOne({ _id: classroom });
+//     if (result) {
+//       const sub = result.subjects.find((sub) => sub._id == subject);
+//       const assesment = sub.assignments.find(
+//         (assesment) => assesment._id == assignment
+//       );
+//       assesment.link = link;
+//       assesment.answer = filename == "" ? "" : `/api/public/${filename}`;
+//       assesment.uploadDate = new Date();
+//       await result.save();
+//       const newClassroom = await Classroom.findOne({ _id: classroom });
+//       res.status(200).json(newClassroom);
+//     } else {
+//       res.status(400).json({ msg: "Classroom not found" });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json(err.message);
+//   }
+// };
+
+
+
+const codeGenerator = async (req, res) => {
   try {
-    console.log(req.body);
-    const classrooms = await Classroom.find({
-      "patient.username": req.body.username,
-    });
-    res.status(200).json(classrooms);
+    // Simple implementation, you can customize it based on your requirements
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const codeLength = 8;
+  let referralCode = '';
+  for (let i = 0; i < codeLength; i++) {
+    referralCode += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  res.status(200).json({ referralCode });
   } catch (err) {
-    res.status(400).json(err.message);
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
-const getClass = async (req, res) => {
-  try {
-    const { id } = req.params;
-    console.log(id);
-    const result = await Classroom.findOne({ _id: id });
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+// const codeGenerator = async (req, res) => {
+//   try {
+//     // Verify the token to get user information
+//     const username = req.body.username;
+//     console.log("username is ", username);
+//     // const decodedToken = jwt.verify(token, process.env.secret);
 
-const uploadAssignment = async (req, res) => {
-  try {
-    const { classroom, subject, assignment, link } = req.body;
-    const filename = req.file == undefined ? "" : req.file.filename;
-    const result = await Classroom.findOne({ _id: classroom });
-    if (result) {
-      const sub = result.subjects.find((sub) => sub._id == subject);
-      const assesment = sub.assignments.find(
-        (assesment) => assesment._id == assignment
-      );
-      assesment.link = link;
-      assesment.answer = filename == "" ? "" : `/api/public/${filename}`;
-      assesment.uploadDate = new Date();
-      await result.save();
-      const newClassroom = await Classroom.findOne({ _id: classroom });
-      res.status(200).json(newClassroom);
-    } else {
-      res.status(400).json({ msg: "Classroom not found" });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err.message);
-  }
-};
+//     // Extract patient ID from decoded token
+//     // const patientId = decodedToken._id; // Assuming _id is the field in the token representing the patient ID
 
-const uploadQuiz = async (req, res) => {
-  try {
-    console.log(req.body);
-    console.log(req.file);
-    const { classroom, subject, quiz, link } = req.body;
-    const filename = req.file == undefined ? "" : req.file.filename;
-    const result = await Classroom.findOne({ _id: classroom });
-    if (result) {
-      const sub = result.subjects.find((sub) => sub._id == subject);
-      const assesment = sub.quizzes.find((assesment) => assesment._id == quiz);
-      assesment.link = link;
-      assesment.answer = filename == "" ? "" : `/api/public/${filename}`;
-      assesment.uploadDate = new Date();
-      await result.save();
-      const newClassroom = await Classroom.findOne({ _id: classroom });
-      res.status(200).json(newClassroom);
-    } else {
-      res.status(400).json({ msg: "Classroom not found" });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err.message);
-  }
-};
+//     // Find the patient by ID
+//     const patient = await Patient.find(username);
+
+//     if (!patient) {
+//       return res.status(404).json({ message: 'Patient not found' });
+//     }
+
+//     // Simple implementation for generating a referral code
+//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     const codeLength = 8;
+//     let referralCode = '';
+//     for (let i = 0; i < codeLength; i++) {
+//       referralCode += characters.charAt(Math.floor(Math.random() * characters.length));
+//     }
+
+//     // Set the generated referral code
+//     patient.referralCode = referralCode;
+
+//     // Save the patient with the updated referral code
+//     await patient.save();
+
+//     res.status(200).json({ referralCode });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// };
+
+
+
+
+
+// const uploadQuiz = async (req, res) => {
+//   try {
+//     console.log(req.body);
+//     console.log(req.file);
+//     const { classroom, subject, quiz, link } = req.body;
+//     const filename = req.file == undefined ? "" : req.file.filename;
+//     const result = await Classroom.findOne({ _id: classroom });
+//     if (result) {
+//       const sub = result.subjects.find((sub) => sub._id == subject);
+//       const assesment = sub.quizzes.find((assesment) => assesment._id == quiz);
+//       assesment.link = link;
+//       assesment.answer = filename == "" ? "" : `/api/public/${filename}`;
+//       assesment.uploadDate = new Date();
+//       await result.save();
+//       const newClassroom = await Classroom.findOne({ _id: classroom });
+//       res.status(200).json(newClassroom);
+//     } else {
+//       res.status(400).json({ msg: "Classroom not found" });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json(err.message);
+//   }
+// };
 
 module.exports = {
   signUp,
@@ -717,8 +525,6 @@ module.exports = {
   updateAppointment,
   deleteAppointment,
   // payment,
-  getClassrooms,
-  getClass,
-  uploadAssignment,
-  uploadQuiz,
+  codeGenerator,
+
 };

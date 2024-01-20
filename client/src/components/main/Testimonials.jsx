@@ -32,7 +32,7 @@ function Testimonials() {
                     />
                   </div>
                   <div className="link-name d-flex justify-content-center">
-                    Balbir Kaur
+                    Rameez CS 
                   </div>
                   <div className="link-position d-flex justify-content-center">
                     Student
@@ -56,7 +56,7 @@ function Testimonials() {
                     />
                   </div>
                   <div className="link-name d-flex justify-content-center">
-                    Balbir Kaur
+                    Dilawar CS
                   </div>
                   <div className="link-position d-flex justify-content-center">
                     Student
@@ -80,7 +80,7 @@ function Testimonials() {
                     />
                   </div>
                   <div className="link-name d-flex justify-content-center">
-                    Balbir Kaur
+                    Project
                   </div>
                   <div className="link-position d-flex justify-content-center">
                     Student

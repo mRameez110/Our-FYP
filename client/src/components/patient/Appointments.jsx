@@ -15,6 +15,7 @@ function Appointments() {
     const { data } = await axios.post("/api/patient/appointment/get", {
       patient: JSON.parse(localStorage.getItem("patient")).username,
     });
+    console.log(data); // Add this lin
     setAppointments(data);
     setLoading(false);
   };

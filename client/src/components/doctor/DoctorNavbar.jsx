@@ -45,7 +45,7 @@ function DoctorNavbar() {
                 <span className="visually-hidden">(current)</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className={`nav-link ${
                   activeTab === "classrooms" ? "active" : ""
@@ -55,7 +55,7 @@ function DoctorNavbar() {
               >
                 Classrooms
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link
                 className={`nav-link ${

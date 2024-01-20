@@ -59,17 +59,7 @@ function PatientNavbar({ patient }) {
                 Finder
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  activeTab === "classrooms" ? "active" : ""
-                }`}
-                to="/patient/dashboard/classrooms"
-                onClick={() => handleTabClick("classrooms")}
-              >
-                Classrooms
-              </Link>
-            </li> */}
+            
             <li className="nav-item">
               <Link
                 className={`nav-link ${
@@ -120,12 +110,6 @@ function PatientNavbar({ patient }) {
                 )}
               </a>
               <div className="dropdown-menu">
-                {/* <Link
-                  className="dropdown-item"
-                  to="/patient/dashboard/view-profile"
-                >
-                  View Profile
-                </Link> */}
 
                 <Link
                   className={`dropdown-item ${
@@ -145,6 +129,14 @@ function PatientNavbar({ patient }) {
                   onClick={() => handleTabClick("Edit Profile")}
                 >
                   Edit Profile
+                </Link>
+
+                <Link
+                  className={`dropdown-item ${activeTab === " Referral Code" ? "active" : ""}`}
+                  to="/patient/dashboard/referral"
+                  onClick={() => handleTabClick(" Referral Code")}
+                >
+                 Referral Code
                 </Link>
 
                 <Link

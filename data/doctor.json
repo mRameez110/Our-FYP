@@ -1,0 +1,356 @@
+[
+  {
+    "name": "Dr. John Doe",
+    "email": "john.doe@example.com",
+    "profile": "https://example.com/profile.jpg",
+    "username": "johndoe",
+    "gender": "Male",
+    "age": "40",
+    "contactno": 1234567890,
+    "language": "English",
+    "city": "Cityville",
+    "password": "hashed_password_here",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-16T12:00:00Z",
+    "rating": 4.5,
+    "education": {
+      "description": "Medical Doctorate",
+      "qualification": "Doctorate",
+      "major": "Medicine",
+      "institute": "Medical University",
+      "passedYear": "2010",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Cardiology",
+      "expertise": "Internal Medicine"
+    },
+    "availability": {
+      "fee": 2500,
+      "hours": 4.5,
+      "startDate": "9:00",
+      "endDate": "17:00",
+      "days": ["Monday", "Wednesday", "Friday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [31.5529, 74.3284],
+      "bookedAppointments": []
+    }
+  },
+
+   {
+    "name": "Dr. Jane Smith",
+    "email": "jane.smith@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "janesmith",
+    "gender": "Female",
+    "age": "35",
+    "contactno": 9876543210,
+    "language": "English",
+    "city": "Townsville",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-20T12:00:00Z",
+    "rating": 4.8,
+    "education": {
+      "description": "Doctor of Medicine",
+      "qualification": "Doctorate",
+      "major": "Medicine",
+      "institute": "Medical University",
+      "passedYear": "2012",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Cardiology",
+      "expertise": "Internal Medicine"
+    },
+    "availability": {
+      "fee": 2800,
+      "hours": 5.0,
+      "startDate": "9:00",
+      "endDate": "18:00",
+      "days": ["Monday", "Wednesday", "Friday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [31.5529, 74.3284],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Mark Johnson",
+    "email": "mark.johnson@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "markjohnson",
+    "gender": "Male",
+    "age": "45",
+    "contactno": 8765432109,
+    "language": "English",
+    "city": "Cityborough",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-22T12:00:00Z",
+    "rating": 4.6,
+    "education": {
+      "description": "Doctor of Surgery",
+      "qualification": "Doctorate",
+      "major": "Surgery",
+      "institute": "Medical University",
+      "passedYear": "2010",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Orthopedics",
+      "expertise": "General Surgery"
+    },
+    "availability": {
+      "fee": 3000,
+      "hours": 4.5,
+      "startDate": "10:00",
+      "endDate": "17:00",
+      "days": ["Tuesday", "Thursday", "Saturday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [32.0522, 72.6928],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Sarah White",
+    "email": "sarah.white@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "sarahwhite",
+    "gender": "Female",
+    "age": "38",
+    "contactno": 7654321098,
+    "language": "English",
+    "city": "Villagetown",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-24T12:00:00Z",
+    "rating": 4.9,
+    "education": {
+      "description": "Doctor of Pediatrics",
+      "qualification": "Doctorate",
+      "major": "Pediatrics",
+      "institute": "Medical University",
+      "passedYear": "2011",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Pediatric Oncology",
+      "expertise": "Pediatrics"
+    },
+    "availability": {
+      "fee": 2600,
+      "hours": 5.5,
+      "startDate": "8:30",
+      "endDate": "19:00",
+      "days": ["Monday", "Wednesday", "Friday"],
+      "timeslot": ["Morning", "Afternoon", "Evening"],
+      "location": [33.6844, 73.0479],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Michael Brown",
+    "email": "michael.brown@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "michaelbrown",
+    "gender": "Male",
+    "age": "42",
+    "contactno": 6543210987,
+    "language": "English",
+    "city": "Metropolis",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-26T12:00:00Z",
+    "rating": 4.7,
+    "education": {
+      "description": "Doctor of Neurology",
+      "qualification": "Doctorate",
+      "major": "Neurology",
+      "institute": "Medical University",
+      "passedYear": "2013",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Neurodegenerative Disorders",
+      "expertise": "Neurology"
+    },
+    "availability": {
+      "fee": 3200,
+      "hours": 4.0,
+      "startDate": "10:30",
+      "endDate": "15:30",
+      "days": ["Tuesday", "Thursday", "Saturday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [34.0522, 118.2437],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Christopher Lee",
+    "email": "christopher.lee@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "christopherlee",
+    "gender": "Male",
+    "age": "39",
+    "contactno": 4321098765,
+    "language": "English",
+    "city": "Cityburg",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-01-30T12:00:00Z",
+    "rating": 4.9,
+    "education": {
+      "description": "Doctor of Ophthalmology",
+      "qualification": "Doctorate",
+      "major": "Ophthalmology",
+      "institute": "Medical University",
+      "passedYear": "2011",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Refractive Surgery",
+      "expertise": "Ophthalmology"
+    },
+    "availability": {
+      "fee": 3000,
+      "hours": 4.0,
+      "startDate": "11:00",
+      "endDate": "15:00",
+      "days": ["Tuesday", "Thursday", "Saturday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [36.7783, 119.4179],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Matthew Miller",
+    "email": "matthew.miller@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "matthewmiller",
+    "gender": "Male",
+    "age": "41",
+    "contactno": 5432109876,
+    "language": "English",
+    "city": "Cityville",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-02-03T12:00:00Z",
+    "rating": 4.7,
+    "education": {
+      "description": "Doctor of Urology",
+      "qualification": "Doctorate",
+      "major": "Urology",
+      "institute": "Medical University",
+      "passedYear": "2010",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Male Reproductive Health",
+      "expertise": "Urology"
+    },
+    "availability": {
+      "fee": 2800,
+      "hours": 4.5,
+      "startDate": "10:00",
+      "endDate": "17:30",
+      "days": ["Tuesday", "Thursday", "Saturday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [38.9072, 77.0379],
+      "bookedAppointments": []
+    }
+  },
+  {
+    "name": "Dr. Sophia Garcia",
+    "email": "sophia.garcia@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "sophiagarcia",
+    "gender": "Female",
+    "age": "34",
+    "contactno": 4321098765,
+    "language": "English",
+    "city": "Villagetown",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-02-05T12:00:00Z",
+    "rating": 4.9,
+    "education": {
+      "description": "Doctor of Psychiatry",
+      "qualification": "Doctorate",
+      "major": "Psychiatry",
+      "institute": "Medical University",
+      "passedYear": "2011",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Child Psychiatry",
+      "expertise": "Psychiatry"
+    },
+    "availability": {
+      "fee": 3000,
+      "hours": 5.0,
+      "startDate": "9:30",
+      "endDate": "18:30",
+      "days": ["Monday", "Wednesday", "Friday"],
+      "timeslot": ["Morning", "Afternoon", "Evening"],
+      "location": [39.9526, 75.1652],
+      "bookedAppointments": []
+    }
+  },
+
+  {
+    "name": "Dr. Emily Rodriguez",
+    "email": "emily.rodriguez@example.com",
+    "profile": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png",
+    "username": "emilyrodriguez",
+    "gender": "Female",
+    "age": "33",
+    "contactno": 3210987654,
+    "language": "English",
+    "city": "Cityburg",
+    "password": "$2a$08$SBe3kbP.0wPR2kQlpwQa3.mbZx274uvmk3v.yUnxtNHxY43KqnJ9G",
+    "isVerified": true,
+    "isProfileComplete": true,
+    "joinedDate": "2023-02-07T12:00:00Z",
+    "rating": 4.8,
+    "education": {
+      "description": "Doctor of Cardiology",
+      "qualification": "Doctorate",
+      "major": "Cardiology",
+      "institute": "Medical University",
+      "passedYear": "2012",
+      "marks": "Excellent"
+    },
+    "experience": {
+      "experience": "Professional",
+      "interest": "Interventional Cardiology",
+      "expertise": "Cardiology"
+    },
+    "availability": {
+      "fee": 3200,
+      "hours": 4.0,
+      "startDate": "10:30",
+      "endDate": "15:30",
+      "days": ["Tuesday", "Thursday", "Saturday"],
+      "timeslot": ["Morning", "Afternoon"],
+      "location": [40.7128, -74.0060],
+      "bookedAppointments": []
+    }
+  }
+
+]

@@ -7,8 +7,8 @@ import Statistics from "./Statistics";
 import EditProfile from "./EditProfile";
 import DeleteProfile from "./DeleteProfile";
 import ViewProfile from "./ViewProfile";
-import Classrooms from "./Classrooms";
-import Class from "./Class";
+// import Classrooms from "./Classrooms";
+// import Class from "./Class";
 import Messages from "./Messages";
 import Appointments from "./Appointments";
 

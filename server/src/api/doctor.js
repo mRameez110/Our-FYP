@@ -30,11 +30,6 @@ const {
   cancelAppointment,
   acceptAppointment,
   modifyAppointment,
-  getClassrooms,
-  classroomAnnouncement,
-  classroomNotes,
-  classroomAssignments,
-  classroomQuizzes,
   deleteDoctor,
 } = require("../controllers/doctorController");
 const { Register, Login } = require("../middleware/basic");
@@ -62,23 +57,6 @@ router.get("/doctor/profile/:username", getProfile);
 router.get("/doctor/all", getAllDoctors);
 router.post("/doctor/update", auth, updateProfile);
 
-router.post("/doctor/getclassrooms", getClassrooms);
-router.post("/doctor/classroom/update", classroomAnnouncement);
-router.post(
-  "/doctor/classroom/notes",
-  upload.single("content"),
-  classroomNotes
-);
-router.post(
-  "/doctor/classroom/assignment",
-  upload.single("content"),
-  classroomAssignments
-);
-router.post(
-  "/doctor/classroom/quiz",
-  upload.single("content"),
-  classroomQuizzes
-);
 
 router.get(
   "/doctor/createGoogle",

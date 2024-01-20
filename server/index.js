@@ -5,7 +5,7 @@ const server = http.createServer(app);
 require("dotenv").config();
 const session = require("express-session");
 var morgan = require("morgan");
-const path = require("path");
+// const path = require("path");
 const cors = require("cors");
 const setupSocket = require("./src/modules/chat");
 
@@ -35,7 +35,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/public", express.static(path.join(__dirname, "/src/public/uploads")));
+// app.use("/public", express.static(path.join(__dirname, "/src/public/uploads")));
 
 app.use(patient);
 app.use(doctor);

@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
     const token = req.body.token;
     if (!token) throw new Error();
     const verifyUser = jwt.verify(token, process.env.secret);
-
+    // console.error(error);
     switch (verifyUser.role) {
       case "patient":
         const patient = await Patient.findOne({ email: verifyUser.email });

@@ -1,16 +1,6 @@
 /* Background Image for Home Screen this image is inside the "CTA" */
 /* Now, I used the image inside the 'CTA' file instead of by using css, so no need of background now */
 
-/* .background {
-
-  background-image: url("https://images.unsplash.com/photo-1588702547954-4800ead296ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
-  background-image: url("https: //previews.123rf.com/images/shutterboythailand/shutterboythailand1601/shutterboythailand160100226/50945648-doctor-holding-a-tablet-pc-with-medical-hub-sign-on-the-display.jpg");
-  background-repeat:no-repeat ;
-  background-size: 100%;
-  background-position: center;
-  height: 80vh; 
-} */
-
 /* Track */
 ::-webkit-scrollbar {
   width: 4px; /* Adjust the width as per your preference */

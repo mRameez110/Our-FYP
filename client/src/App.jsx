@@ -14,7 +14,6 @@ import DoctorDashboard from "./components/doctor/DoctorDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 function App() {
- // const [count, setCount] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -47,6 +47,10 @@ const patientSchema = new mongoose.Schema({
   language: {
     type: String,
   },
+  referralCode: {
+    type: String,
+    unique: true,
+  },
   tokens: [
     {
       token: {

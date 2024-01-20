@@ -1,3 +1,4 @@
+// Page form for reset new password
 import React, { useState } from "react";
 import "./../../assets/css/home.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
